@@ -84,8 +84,8 @@ class block_grade_me extends block_base {
             $context = context_course::instance($courseid);
             foreach (explode(',', $CFG->gradebookroles) as $roleid) {
                 $roleid = trim($roleid);
-                if ((groups_get_course_groupmode($course) == SEPARATEGROUPS) &&
-                    !has_capability('moodle/site:accessallgroups', $context)) {
+                if (groups_get_course_groupmode($course) == SEPARATEGROUPS
+                    || groups_get_course_groupmode($course) == VISIBLEGROUPS) {
                     $groups = groups_get_user_groups($courseid, $USER->id);
                     foreach ($groups[0] as $groupid) {
                         $gradebookusers = array_merge($gradebookusers,
